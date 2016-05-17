@@ -1,0 +1,29 @@
+body {
+  font-family: "Helvetica", "Arial", sans-serif;
+  
+}
+  
+.content {
+  padding: 1em;
+  background: rgba(255, 216, 200, 0.4);
+  width: 200px;
+}
+  
+.content .header {
+  text-shadow: 5px 5px 2px #cccccc;
+  filter: url(#drop-shadow);
+  font-size: 20px;
+  font-weight: bold;
+  display: block;
+}
+
+.content .paragraph {
+  width: 100%;
+  border: solid 1px blue;
+}
+
+svg {
+  border: solid 1px red;
+  overflow: visible;
+}
+
