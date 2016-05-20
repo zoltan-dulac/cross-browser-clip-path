@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:svg="http://www.w3.org/2000/svg">
 	<head>
 		<meta charset="utf-8">
 
@@ -20,16 +20,27 @@
 	<body>
 		
 		<h1>SVG example</h1>
-		<svg class="content" xmlns="http://www.w3.org/2000/svg" xmlns:xlink= "http://www.w3.org/1999/xlink" baseProfile="tiny">
+		<svg 
+			class="content" 
+			xmlns="http://www.w3.org/2000/svg" 
+			xmlns:xlink= "http://www.w3.org/1999/xlink" 
+			xmlns:text="http://xmlns.graougraou.com/svg/text/"
+			baseProfile="tiny"
+			a3:scriptImplementation="Adobe" 
+			onload="TextWrap._init(evt)">
 			<desc>This example uses the 'switch' element to provide a 
 						fallback graphical representation of a paragraph, if 
 						XHTML is not supported.</desc>
 			<defs>
+			
+				<!-- Set the clip path -->
 				<path id="path1" d="M10,30 H190 M10,60 H190 M10,90 H190 M10,120 H190"></path>
 				<clipPath id="myClip">
 						<circle cx="30" cy="30" r="20"/>
 						<circle cx="70" cy="70" r="20"/>
 				</clipPath>
+				
+				<!-- for the drop shadow -->
 				<filter id="drop-shadow">
 					<feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
 					<feOffset dx="5" dy="5" result="offsetblur"/>
@@ -40,15 +51,21 @@
 						<feMergeNode in="SourceGraphic"/>
 					</feMerge>
 				</filter>
+				
+				<script xlink:href="js/TextWrap.es"
+			a3:scriptImplementation="Adobe" />
 			</defs>
 			<!-- You must have width and height in pixels for IE.-->
 			<g >
 				<text>
 					<tspan	x="0" y="30" class="header" style="filter: url(#drop-shadow)">This is arbitrary HTML</tspan>
-					<tspan width="200" height="200" x="0" y="60" class="paragraph">This has been clipped using the 
-						SVG clip-path tag</tspan>
-				</text>
+					
 			</g>
+			
+			<text:wrap  class="textWrap" x="0" y="60" width="200" height="200" 	>
+					This has been clipped using the 
+						SVG clip-path tag.</text:wrap>
+				</text>
 		</svg>
 		
 		

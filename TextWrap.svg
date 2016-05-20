@@ -7,7 +7,7 @@
       xmlns:text="http://xmlns.graougraou.com/svg/text/"
       xmlns:a3="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
       xmlns:xlink= "http://www.w3.org/1999/xlink"
-      a3:scriptImplementation="Adobe" onload="TextWrap._init()">
+      a3:scriptImplementation="Adobe" onload="TextWrap._init(evt)">
   
   <!-- from http://www.xml.com/lpt/a/1031 -->
   

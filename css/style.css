@@ -27,3 +27,10 @@ svg {
   overflow: visible;
 }
 
+.textWrap {
+  font-family: "arial";
+  font-size: 11px;
+  text-rendering: optimizeLegibility;
+  text-align: justify;
+  line-height: 1.5em;
+}

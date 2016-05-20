@@ -39,14 +39,31 @@ function TextWrap (id, node) {
 	this._lines = null;
 	this._initialized = false;
 	this._construct();
+	this.docType;
 }
 
 TextWrap.ns = 'http://xmlns.graougraou.com/svg/text/';
 
 TextWrap._instances = new Array();
 
-TextWrap._init = function () {
-	var elements = document.documentElement.getElementsByTagNameNS(this.ns, 'wrap');
+TextWrap._init = function (e) {
+	var SVGdoc = e.target,
+			docEl = document.documentElement,
+		  elements;
+	
+	this.docType = docEl.nodeName;
+		  
+	// If this is a standalone SVG document, we use getElementsByTagNameNS,
+	// since SVG documents can be namespaced.  For SVG images embedded inline
+	// into HTML, it seems like we have to use getElementsByTagName without
+	// the namespacing.
+	
+	if (this.docType === 'svg') {
+		elements = SVGdoc.getElementsByTagNameNS(this.ns, 'wrap');
+	} else {
+		elements = SVGdoc.getElementsByTagName('text:wrap');
+	}
+	
 	for (var i=0; i<elements.length; i++) {
 		this._instances.push( new TextWrap(i, elements.item(i)) );
 	}
@@ -62,7 +79,7 @@ TextWrap._init = function () {
 TextWrap.prototype._construct = function () {
 	this._build();
 	this._svg.setAttribute('style', this._node.getAttribute('style'));
-	var style = this._svg.style;
+	var style = document.defaultView.getComputedStyle(this._node, null);
 	this._node.normalize();
 	
 	this.setString( this._node.firstChild.data );
