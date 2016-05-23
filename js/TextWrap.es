@@ -83,8 +83,7 @@ TextWrap.prototype._construct = function () {
 	this._node.normalize();
 	
 	this.setString( this._node.firstChild.data );
-	this.setX( parseInt(this._node.getAttribute('x')) );
-	this.setY( parseInt(this._node.getAttribute('y')) );
+	this.setCoords( parseInt(this._node.getAttribute('x')), parseInt(this._node.getAttribute('y')) );
 	this.setWidth( parseInt(this._node.getAttribute('width')) );
 	this.setTextAlign( style.getPropertyValue('text-align') );
 	this.setFontFamily( style.getPropertyValue('font-family') );
@@ -219,22 +218,21 @@ TextWrap.prototype.getX = function () {
 	return this._x;
 }
 
-TextWrap.prototype.setX = function (x) {
-	if (x != this._x) {
-		this._x = x;
-		this._svg.setAttribute('transform', 'translate(' + this._x + ' ' + this._y + ')');
-	} 
-}
-
 TextWrap.prototype.getY = function () {
 	return this._y;
 }
 
-TextWrap.prototype.setY = function (y) {
-	if (y != this._y) {
+TextWrap.prototype.setCoords = function (x, y) {
+	if (x !== this._x) {
+		this._x = x;
+	}
+	
+	if (y !== this._y) {
 		this._y = y;
-		this._svg.setAttribute('transform', 'translate(' + this._x + ' ' + this._y + ')');
-	} 
+	}
+	
+	this._svg.setAttribute('transform', 'translate(' + this._x + ' ' + this._y + ')');
+	 
 }
 
 TextWrap.prototype.getWidth = function () {
