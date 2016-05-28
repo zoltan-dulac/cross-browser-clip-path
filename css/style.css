@@ -2,36 +2,53 @@ body {
   font-family: "Helvetica", "Arial", sans-serif;
   
 }
-  
+
+
+/* Makes sure the SVG content doesn't affect the layout of surrounding elements */
 .content {
-  padding: 1em;
-  background: rgba(255, 216, 200, 0.4);
-  width: 200px;
+  width: 400px;
+  height: 400px;
+}
+
+.content .clipped-item {
+  fill: rgba(255, 216, 200, 0.4);
 }
   
 .content .header {
+	/* This text shadow is needed for Firefox */
   text-shadow: 5px 5px 2px #cccccc;
   filter: url(#drop-shadow);
-  font-size: 20px;
+  font-size: 36px;
   font-weight: bold;
   display: block;
 }
 
-.content .paragraph {
-  width: 100%;
-  border: solid 1px blue;
-}
 
 svg {
-  border: solid 1px red;
-  overflow: visible;
+	overflow: visible;
 }
 
 .textWrap {
   font-family: "arial";
-  font-size: 11px;
+  font-size: 30px;
   text-rendering: optimizeLegibility;
   text-align: justify;
   line-height: 1.5em;
-  width: 200px;
+  width: 400px;
+}
+
+.header {
+	animation-duration: 3s;
+  animation-name: maskAnim;
+  animation-iteration-count: infinite;
+}
+
+@keyframes maskAnim {
+  0% {
+    transform: scale(0);
+  }
+
+  100% {
+    transform: scale(6);
+  }
 }

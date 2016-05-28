@@ -46,13 +46,17 @@ TextWrap.ns = 'http://xmlns.graougraou.com/svg/text/';
 
 TextWrap._instances = new Array();
 
-TextWrap._init = function (e) {
+TextWrap.init = function () {
+	document.addEventListener("DOMContentLoaded", TextWrap._onDomContentLoaded.bind(this));
+}
+
+TextWrap._onDomContentLoaded = function (e) {
 	var SVGdoc = e.target,
 			docEl = document.documentElement,
 		  elements;
 	
 	this.docType = docEl.nodeName;
-		  
+	
 	// If this is a standalone SVG document, we use getElementsByTagNameNS,
 	// since SVG documents can be namespaced.  For SVG images embedded inline
 	// into HTML, it seems like we have to use getElementsByTagName without
@@ -60,7 +64,9 @@ TextWrap._init = function (e) {
 	
 	if (this.docType === 'svg') {
 		elements = SVGdoc.getElementsByTagNameNS(this.ns, 'wrap');
+		console.log('svg');
 	} else {
+		console.log('html');
 		elements = SVGdoc.getElementsByTagName('text:wrap');
 	}
 	
@@ -68,7 +74,7 @@ TextWrap._init = function (e) {
 		this._instances.push( new TextWrap(i, elements.item(i)) );
 	}
 	
-}
+};
 
 /**
  *
@@ -327,6 +333,9 @@ TextWrap.prototype.getLineInterval = function () {
 
 TextWrap.prototype.setLineInterval = function (interval) {
 	if (interval != this._interval) {
+		if (interval === 'normal') {
+			interval = '1em';
+		}
 		this._interval = interval;
 		if (this._initialized) {
 			var element = this._svg.firstChild;
@@ -367,3 +376,6 @@ function Line (width, words) {
 	this._width = width;
 	this._words = words;
 }
+console.log('done');
+
+TextWrap.init();

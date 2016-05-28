@@ -15,6 +15,11 @@
 
 		
 		<link rel="stylesheet" href="css/style.css" type="text/css" />
+		
+		
+		<script src="js/TextWrap.es"></script>
+		<script type="text/javascript" src="js/smil-in-javascript.js"></script>
+		<script type="text/javascript" src="js/web-animations.js"></script>
 	</head>
 
 	<body>
@@ -27,7 +32,7 @@
 			xmlns:text="http://xmlns.graougraou.com/svg/text/"
 			baseProfile="tiny"
 			a3:scriptImplementation="Adobe" 
-			onload="TextWrap._init(evt)">
+			>
 			<desc>This example uses the 'switch' element to provide a 
 						fallback graphical representation of a paragraph, if 
 						XHTML is not supported.</desc>
@@ -36,8 +41,23 @@
 				<!-- Set the clip path -->
 				<path id="path1" d="M10,30 H190 M10,60 H190 M10,90 H190 M10,120 H190"></path>
 				<clipPath id="myClip">
-						<circle cx="30" cy="30" r="20"/>
-						<circle cx="70" cy="70" r="20"/>
+						<path id="star-path" fill="none" stroke="#000" d="M 332.25647,385.51933 L 217.94322,325.58331 L 103.76342,385.77314 L 125.44132,258.53357 L 32.91382,168.54182 L 160.62472,149.83945 L 217.61942,34.031678 L 274.87122,149.71255 L 402.62329,168.13113 L 310.29602,258.32822 L 332.25647,385.51933 z" >
+							<!-- 
+							  * In order to scale from the origin, we need to tranalste using this formula:
+							  *
+							  * translate(-centerX*(factor-1), -centerY*(factor-1))
+							  *
+							  * from: https://www.safaribooksonline.com/library/view/svg-essentials/0596002238/ch05s06.html
+							-->
+							<animateTransform attributeName="transform" attributeType="XML" 
+											begin="0s" dur="3s" type="translate" from="0, 0" to="-1290, -1290" repeatCount="indefinite"></animateTransform>
+							<animateTransform attributeName="transform" attributeType="XML" 
+											begin="0s" dur="3s" type="scale" from="0" to="6" repeatCount="indefinite" additive="sum"></animateTransform> 
+							<animateTransform attributeName="transform" attributeType="XML" 
+											begin="0s" dur="3s" type="rotate" from="0 215 215" to="360 215 215" repeatCount="indefinite" additive="sum"></animateTransform>
+							
+							
+						</path>
 				</clipPath>
 				
 				<!-- for the drop shadow -->
@@ -52,58 +72,25 @@
 					</feMerge>
 				</filter>
 				
-				<script xlink:href="js/TextWrap.es"
-			a3:scriptImplementation="Adobe" />
+				
 			</defs>
 			<!-- You must have width and height in pixels for IE.-->
 			<g clip-path="url(#myClip)">
-				<text>
-					<tspan	x="0" y="30" class="header" style="filter: url(#drop-shadow)">This is arbitrary HTML</tspan>
+				<rect width="430" height="430" x="0" y="0" class="clipped-item" />
+				<text width="400">
+					<tspan	x="15" y="60" class="header" style="filter: url(#drop-shadow)">This is made with SVG</tspan>
 				</text>
 			
-				<text:wrap  class="textWrap" x="0" y="60" width="200" height="200" 	>
-					This has been clipped using the SVG clip-path tag.
+				<text:wrap  class="textWrap" x="15" y="90" width="400" 	>
+					This has been clipped using the SVG clip-path tag.  You should see a star rotating and clipping this text.  It uses SMIL to animate the clipping.
 				</text:wrap>
 				
 			</g>
 		</svg>
 		
+		<p>This is the end of the document.</p>
 		
-		<h1>HTML example</h1>
-		<svg class="content" xmlns="http://www.w3.org/2000/svg">
-			<desc>This example uses the 'switch' element to provide a 
-						fallback graphical representation of a paragraph, if 
-						XHTML is not supported.</desc>
-			<defs>
-				<clipPath id="myClip">
-						<circle cx="30" cy="30" r="20"/>
-						<circle cx="70" cy="70" r="20"/>
-				</clipPath>
-		</defs>
-			<!-- The 'switch' element will process the first child element
-					 whose testing attributes evaluate to true.-->
-			<switch>
-		
-				<!-- Process the embedded XHTML if the requiredExtensions attribute
-						 evaluates to true (i.e., the user agent supports XHTML
-						 embedded within SVG). -->
-				<foreignObject width="100%" height="100%" clip-path="url(#myClip)"
-									 requiredExtensions="http://www.w3.org/1999/xhtml">
-					<div class="content">
-						<h1 class="header">This is arbitrary HTML</h1>
-							
-						<p>This has been clipped using the SVG clip-path tag</p>
-					</div>
-				</foreignObject>
-				<!-- Else, process the following alternate SVG.
-						 Note that there are no testing attributes on the 'text' element.
-						 If no testing attributes are provided, it is as if there
-						 were testing attributes and they evaluated to true.-->
-				<text font-size="10" font-family="Verdana">
-					<tspan x="10" y="10">Here is a paragraph that</tspan>
-					<tspan x="10" y="20">requires word wrap.</tspan>
-				</text>
-			</switch>
-		</svg>
+		<!-- <script type="text/javascript" src="js/smil.user.js" ></script>
+		<script type="text/javascript" src="js/smil.check.js" ></script> -->
 	</body>
 </html>
