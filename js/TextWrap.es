@@ -64,9 +64,7 @@ TextWrap._onDomContentLoaded = function (e) {
 	
 	if (this.docType === 'svg') {
 		elements = SVGdoc.getElementsByTagNameNS(this.ns, 'wrap');
-		console.log('svg');
 	} else {
-		console.log('html');
 		elements = SVGdoc.getElementsByTagName('text:wrap');
 	}
 	
@@ -376,6 +374,5 @@ function Line (width, words) {
 	this._width = width;
 	this._words = words;
 }
-console.log('done');
 
 TextWrap.init();
